@@ -7,7 +7,9 @@ import CarOffer from './CarOffer';
 // when sorting jut invert instead of sorting everything its faster
 // if selectedCarModels empty, show all
 // sortowanie: cena \/ i cena /\
-
+// scss'y porozrzucac do odpowiednich plikow
+//set min width so that flex-wrap works
+// webkit-fill-available
 class App extends Component {
   constructor(props){
     super(props);
@@ -102,6 +104,7 @@ class App extends Component {
           label={model}
           value={model}
           onChange={this.handleChangeFilteredModels}
+          className="models__single-model"
         />)
 
     }
@@ -110,27 +113,39 @@ class App extends Component {
       this.state.loading ? 
       <div>Loading...</div> :
      <div>
-      <div>
-        <span>SORTUJ: </span>
-        <span>
-        <Dropdown className="sort-select">
-          <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
-            {this.state.sortCarsByPrice==="asc" ? 
-            <span>CENA <i class="fas fa-caret-up"></i></span> : 
-            <span>CENA <i class="fas fa-caret-down"></i></span>}
-          </Dropdown.Toggle>
+      <div className="app__header">
+        <div className="header__title">GORĄCE OFERTY</div>
+        <div className="header__sort">
+          <span style={{marginRight:"10px"}}>SORTUJ: </span>
+          <span>
+          <Dropdown className="sort-select">
+            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
+              {this.state.sortCarsByPrice==="asc" ? 
+              <span>CENA <i class="fas fa-caret-up"></i></span> : 
+              <span>CENA <i class="fas fa-caret-down"></i></span>}
+            </Dropdown.Toggle>
 
-          <Dropdown.Menu >
-            <Dropdown.Item onClick={this.handleChangeSortToAscending} ><span>CENA <i class="fas fa-caret-up"></i></span></Dropdown.Item>
-            <Dropdown.Item onClick={this.handleChangeSortToDescending} ><span>CENA <i class="fas fa-caret-down"></i></span></Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>;
-        </span>
+            <Dropdown.Menu >
+              <Dropdown.Item onClick={this.handleChangeSortToAscending} ><span>CENA <i class="fas fa-caret-up"></i></span></Dropdown.Item>
+              <Dropdown.Item onClick={this.handleChangeSortToDescending} ><span>CENA <i class="fas fa-caret-down"></i></span></Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          </span>
+        </div>
       </div>
-      <div>
-      {models}
+      <div className="app__content">
+
+      <div className="app__models">
+        <div className="models__header">WYBIERZ MODEL</div>
+        <div className="models__list">
+          {models}
+        </div>
       </div>
-      {test}
+      <div className="app__offers">
+        {test}
+      </div>
+
+      </div>
      </div>
       
     );
