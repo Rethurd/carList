@@ -4,12 +4,11 @@ import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form'
 import CarOffer from './CarOffer';
-// when sorting jut invert instead of sorting everything its faster
-// if selectedCarModels empty, show all
-// sortowanie: cena \/ i cena /\
-// scss'y porozrzucac do odpowiednich plikow
-//set min width so that flex-wrap works
-// webkit-fill-available
+import classNames from 'classnames';
+
+// when sorting jut invert instead of sorting everything so it's faster? - 
+// not doing it because cant get sorted data from api
+
 class App extends Component {
   constructor(props){
     super(props);
@@ -22,15 +21,13 @@ class App extends Component {
       loading:true
     }
   }
-
-  
   componentDidMount(){
     this.fetchCarHotModels();
    
   }
-  //fetch has problems with Cross Origin Resource Sharing
-  //using axios instead
 
+  //fetch has problems with CORS
+  //using axios instead
   fetchCarHotModels = () =>{
     axios.get("https://stock.ssangyong.pl/api/getHotModels/")
     .then((res)=>res.data)
@@ -43,18 +40,22 @@ class App extends Component {
         this.fetchCarHotOffers();
       });
     })
-    .catch(function (error) {
-      // handle error
+    .catch((error)=>{
       console.log(error);
     })
-    .then(function () {
-      // always executed
-    });
   }
 
 
   fetchCarHotOffers = () =>{
-    axios.post("https://stock.ssangyong.pl/api/getHotoffers/")
+    axios({
+      method:'post',
+      url:'https://stock.ssangyong.pl/api/getHotoffers/',
+      // CORS
+      // data:{
+      //   model:'Tivoli,Korando',
+      //   'sort[hot_price]': "asc"
+      // }
+    })
     .then((res)=>res.data)
     .then((offers)=>{
       const carOffers=[];
@@ -65,8 +66,9 @@ class App extends Component {
       }
       carOffers.sort(this.sortCarsDescending);
       this.setState(()=>({carOffers,selectedCarOffers:carOffers,loading:false}));
+    }).catch((error)=>{
+      console.log(error);
     })
-    
   }
   sortCarsAscending = (a,b) => parseInt(a.params.price.hot_price.replace('&nbsp;',''))-parseInt(b.params.price.hot_price.replace('&nbsp;',''));
   sortCarsDescending = (a,b) => -(parseInt(a.params.price.hot_price.replace('&nbsp;',''))-parseInt(b.params.price.hot_price.replace('&nbsp;','')));
@@ -81,26 +83,28 @@ class App extends Component {
   handleChangeFilteredModels = (e)=>{
     let selectedCarModels = this.state.selectedCarModels;
     if(selectedCarModels.includes(e.target.value)){
-      selectedCarModels = selectedCarModels.filter((model)=>(model!=e.target.value))
+      selectedCarModels = selectedCarModels.filter((model)=>(model!==e.target.value))
     }else{
       selectedCarModels.push(e.target.value);
     }
     this.setState(()=>({selectedCarModels}));
   }
   render() {
-    let test=[];
+    let offers = [];
     let models = [];
     if(this.state.loading===false){
-      test = this.state.selectedCarOffers.map((offer)=>{
+      offers = this.state.selectedCarOffers.map((offer)=>{
         //check if model checked and create components
-        if(this.state.selectedCarModels.length==0){
-          return <CarOffer offer={offer}/>
+        if(this.state.selectedCarModels.length===0){
+          return <CarOffer key={offer.id} offer={offer}/>
         }else if(this.state.selectedCarModels.includes(offer.params.model)){
-          return <CarOffer offer={offer}/>
+          return <CarOffer key={offer.id} offer={offer}/>
         }
+        return null;
       });
       models = this.state.carModels.map((model)=>
         <Form.Check 
+          key={model}
           label={model}
           value={model}
           onChange={this.handleChangeFilteredModels}
@@ -121,20 +125,18 @@ class App extends Component {
           <Dropdown className="sort-select">
             <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
               {this.state.sortCarsByPrice==="asc" ? 
-              <span>CENA <i class="fas fa-caret-up"></i></span> : 
-              <span>CENA <i class="fas fa-caret-down"></i></span>}
+              <span>CENA <i className={classNames("fas","fa-caret-up")}></i></span> : 
+              <span>CENA <i className={classNames("fas","fa-caret-down")}></i></span>}
             </Dropdown.Toggle>
-
             <Dropdown.Menu >
-              <Dropdown.Item onClick={this.handleChangeSortToAscending} ><span>CENA <i class="fas fa-caret-up"></i></span></Dropdown.Item>
-              <Dropdown.Item onClick={this.handleChangeSortToDescending} ><span>CENA <i class="fas fa-caret-down"></i></span></Dropdown.Item>
+              <Dropdown.Item onClick={this.handleChangeSortToAscending} ><span>CENA <i className={classNames("fas","fa-caret-up")}></i></span></Dropdown.Item>
+              <Dropdown.Item onClick={this.handleChangeSortToDescending} ><span>CENA <i className={classNames("fas","fa-caret-down")}></i></span></Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
           </span>
         </div>
       </div>
       <div className="app__content">
-
       <div className="app__models">
         <div className="models__header">WYBIERZ MODEL</div>
         <div className="models__list">
@@ -142,12 +144,10 @@ class App extends Component {
         </div>
       </div>
       <div className="app__offers">
-        {test}
+        {offers}
       </div>
-
       </div>
-     </div>
-      
+     </div> 
     );
   }
 }
