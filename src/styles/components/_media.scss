@@ -103,3 +103,86 @@
     }
 }
 
+@media (min-width:2000px){
+
+    .app__header{
+        padding-right:90px;
+    }
+    .app__header .header__title{
+        font-size:$xxxl-size;
+    }
+    .models__header,.header__sort,.header__sort span{
+        font-size:$xxl-size !important;
+    }
+    .header__sort button{
+        width:200px;
+    }
+    .header__sort button span{
+        width:200px !important;
+        padding-right:40px;
+    }
+    .app__models{
+        
+        font-size:$xxl-size !important;
+        .form-check-label{
+            margin-left:10px;
+        }
+        .form-check-input{
+            transform:scale(3) !important;
+            // margin-right:10px;
+        }
+    }
+    .offer__info-container{
+        .offer__info__header{
+            font-size:$xxl-size;
+        }
+        .offer__info__desc{
+            font-size:$xl-size;
+            .desc__name{
+                min-width:250px;
+            }
+        }
+    }
+    .offer__prices-container{
+        .price__desc, .price__desc--hot{
+            font-size:$xl-size !important;
+        }
+        .price__amount{
+            font-size:$xl-size !important;
+        }
+        .price__amount--hot{
+            font-size:$xxxl-size !important;
+        }
+        .price__button{
+            font-size:$xxl-size;
+        }
+    }
+    
+}
+
+@media(min-width:2800px){
+    .offer__info-container{
+        .offer__info__header{
+            font-size:$xxxl-size;
+        }
+        .offer__info__desc{
+            font-size:$xxl-size;
+            .desc__name{
+                min-width:350px;
+            }
+        }
+    }
+    .offer__prices-container{
+        .price__desc, .price__desc--hot{
+            font-size:$xxxl-size !important;
+        }
+        .price__amount{
+            font-size:$xxxl-size !important;
+        }
+        .price__amount--hot{
+            font-size:$xxxxl-size !important;
+        }
+
+    }
+}
+
