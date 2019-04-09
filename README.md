@@ -1,3 +1,5 @@
+Simple SAP that displays car sale deals taken from an external API.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

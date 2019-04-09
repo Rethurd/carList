@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import '../styles/styles.scss';
 import axios from 'axios';
-import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form'
 import CarOffer from './CarOffer';
-import classNames from 'classnames';
-
+import Header from './Header';
+import Content from './Content';
 // when sorting jut invert instead of sorting everything so it's faster? - 
 // not doing it because cant get sorted data from api
 
@@ -117,36 +116,15 @@ class App extends Component {
       this.state.loading ? 
       <div>Loading...</div> :
      <div>
-      <div className="app__header">
-        <div className="header__title">GORĄCE OFERTY</div>
-        <div className="header__sort">
-          <span style={{marginRight:"10px"}}>SORTUJ: </span>
-          <span>
-          <Dropdown className="sort-select">
-            <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
-              {this.state.sortCarsByPrice==="asc" ? 
-              <span>CENA <i className={classNames("fas","fa-caret-up")}></i></span> : 
-              <span>CENA <i className={classNames("fas","fa-caret-down")}></i></span>}
-            </Dropdown.Toggle>
-            <Dropdown.Menu >
-              <Dropdown.Item onClick={this.handleChangeSortToAscending} ><span>CENA <i className={classNames("fas","fa-caret-up")}></i></span></Dropdown.Item>
-              <Dropdown.Item onClick={this.handleChangeSortToDescending} ><span>CENA <i className={classNames("fas","fa-caret-down")}></i></span></Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          </span>
-        </div>
-      </div>
-      <div className="app__content">
-      <div className="app__models">
-        <div className="models__header">WYBIERZ MODEL</div>
-        <div className="models__list">
-          {models}
-        </div>
-      </div>
-      <div className="app__offers">
-        {offers}
-      </div>
-      </div>
+      <Header 
+        sortCarsByPrice={this.state.sortCarsByPrice}
+        handleChangeSortToAscending={this.handleChangeSortToAscending}
+        handleChangeSortToDescending={this.handleChangeSortToDescending}
+        />
+      <Content 
+        models={models}
+        offers={offers}
+      />
      </div> 
     );
   }

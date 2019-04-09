@@ -3,7 +3,6 @@ import Button from 'react-bootstrap/Button';
 import missingPhoto from '../resources/not-found-2.png';
 const CarOffer = (props) => {
     return ( 
-        
         <div className={"offer__container"}>
             <div className="offer__image-container">
                 <img src={`https://www.ssangyong.pl/konfigurator-images/images/${props.offer.params.model.toLowerCase()}/${props.offer.params.my}/colors/cars/${props.offer.params.color.replace(' ','_').toLowerCase()}.png`} 
