@@ -41,7 +41,7 @@
         .offer__image-container{
             width:70%;
             img{
-                height:275px;
+                // height:275px;
             }
         }
         .offer__info-container{
@@ -83,13 +83,16 @@
         width:100%;
     }
     .offer__container .offer__image-container img{
-        height:100%;
-        min-height:150px;
+        // height:100%;
+        // min-height:150px;
     }
     .offer__container .offer__info-container{
         order:2;
         min-width:200px;
         padding:12px;
+    }
+    .price{
+        height:40px !important;
     }
     .price__desc, .price__desc--hot{
         font-size:$s-size !important;
@@ -101,8 +104,38 @@
         font-size:$l-size !important;
         text-shadow: 1px 0 $color-red !important    ;
     }
+    .price__button{
+        padding:0 !important;
+        height:40px !important;
+    }
+    .tooltip--text{
+        font-size:$m-size;
+    }
+    .tooltip--line{
+        height:25px !important;
+    }
+    .tooltip--box{
+        width:70px !important;
+        font-size:$s-size !important;
+    }
 }
-
+@media (min-width:1400px) and (max-width:2000px){
+    .offer__info__header{
+        font-size:$l-size !important;
+    }
+    .offer__info__desc{
+        font-size:$m-size !important;
+    }
+    .price .price__desc, .price .price__desc--hot{
+        font-size:$m-size !important;
+    }
+    .price__amount{
+        font-size:$l-size !important;
+    }
+    .price .price__amount--hot{
+        font-size:$xl-size !important;
+    }
+}
 @media (min-width:2000px){
 
     .app__header{
@@ -124,27 +157,32 @@
     .app__models{
         
         font-size:$xxl-size !important;
+        .models__single-model{
+            margin:45px auto !important;
+        }
         .form-check-label{
-            margin-left:10px;
+            margin-left:20px !important;
         }
         .form-check-input{
             transform:scale(3) !important;
+            -moz-transform: scale(1) !important;
             // margin-right:10px;
         }
     }
     .offer__info-container{
+        padding:5px;
         .offer__info__header{
-            font-size:$xxl-size;
+            font-size:$xxl-size !important;
         }
         .offer__info__desc{
-            font-size:$xl-size;
+            font-size:$xl-size !important;
             .desc__name{
                 min-width:250px;
             }
         }
     }
     .offer__prices-container{
-        .price__desc, .price__desc--hot{
+        .price__desc, .price .price__desc--hot{
             font-size:$xl-size !important;
         }
         .price__amount{
@@ -162,11 +200,12 @@
 
 @media(min-width:2800px){
     .offer__info-container{
+        padding:30px;
         .offer__info__header{
-            font-size:$xxxl-size;
+            font-size:$xxxl-size !important;
         }
         .offer__info__desc{
-            font-size:$xxl-size;
+            font-size:$xxl-size !important;
             .desc__name{
                 min-width:350px;
             }

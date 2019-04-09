@@ -10,7 +10,7 @@ const CarOffer = (props) => {
                 <div className="image__tooltip">
                     
                     {props.offer.new_used==="new" ? <div className="tooltip--line"></div> : null}
-                    <div className="tooltip--text"><span style={{fontWeight:"bold"}}>{props.offer.params.model}</span> {props.offer.params.trim}</div>
+                    <div className="tooltip--text"><span style={{fontWeight:"bold",textShadow:"1px 0 white"}}>{props.offer.params.model}</span> {props.offer.params.trim}</div>
                     {props.offer.new_used==="new" ? <div className="tooltip--box"><span>NOWY</span></div> : null}
                 </div>
             </div>
